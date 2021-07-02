@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-
 const firebase = require('./firebase');
 const db = firebase.firestore();
 const port = process.env.PORT || 5002;

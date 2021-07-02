@@ -13,6 +13,20 @@
     }
   };
 
+  let resp = 100;
+  const screenWidth = screen.width;
+  if (screenWidth < 768) {
+    resp = 30;
+  }
+  window.addEventListener("resize", () => {
+    const screenWidth = screen.width;
+    if (screenWidth < 768) {
+      resp = 30;
+    } else {
+      resp = 100;
+    }
+  });
+
   const handleChepPassword = () => {
     if (document.getElementsByClassName("chep_password")[0].value.trim().length !== 0) {
       chep_password = document.getElementsByClassName("chep_password")[0].value;
@@ -92,7 +106,7 @@
       name="myTextarea"
       id="myTextarea"
       style="font-size:1.2em;"
-      cols="100"
+      cols={resp}
       rows="20"
       >Your Chep Data!
     </textarea>
@@ -120,19 +134,6 @@
     border: none;
     color: black;
     font-size: 1vw;
-  }
-  @media screen and (max-width: 768px) {
-    .searchbar {
-      margin-top: 1vw;
-      height: auto;
-      width: auto;
-      width: 70vw;
-      display: flex;
-    }
-    .searchbar input {
-      font-size: 2vh;
-      margin-bottom: 1.2vh;
-    }
   }
   .height-100 {
     height: 100%;
@@ -166,5 +167,31 @@
   }
   button:hover {
     cursor: pointer;
+  }
+  @media screen and (max-width: 768px) {
+    .searchbar {
+      margin-top: 1vw;
+      height: auto;
+      width: auto;
+      width: 70vw;
+      display: flex;
+    }
+    .searchbar input {
+      font-size: 2vh;
+      margin-bottom: 1.2vh;
+    }
+    button {
+      height: 10vw;
+      width: 25vw;
+      border: none;
+      text-align: center;
+      padding-left: 1vw;
+      padding-right: 1vw;
+      color: white;
+      background-color: #000;
+      font-size: 3.5vw;
+      border-radius: 5px;
+      margin-top: 0vh;
+    }
   }
 </style>

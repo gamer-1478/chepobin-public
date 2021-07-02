@@ -2,12 +2,26 @@
   window.addEventListener("submit", async (e) => {
     e.preventDefault();
     if (e.target.id === "retrieve") {
-      console.log(window.location.host+"/get")
-      window.location.href = window.location.origin+"/get";
+      console.log(window.location.host + "/get");
+      window.location.href = window.location.origin + "/get";
     }
     if (e.target.id === "add_chep") {
-      console.log(window.location.host+"/send")
-      window.location.href = window.location.origin+"/send";
+      console.log(window.location.host + "/send");
+      window.location.href = window.location.origin + "/send";
+    }
+  });
+
+  let resp = false;
+  const screenWidth = screen.width;
+  if (screenWidth < 768) {
+    resp = true;
+  }
+  window.addEventListener("resize", () => {
+    const screenWidth = screen.width;
+    if (screenWidth < 768) {
+      resp = true;
+    } else {
+      resp = false;
     }
   });
 </script>
@@ -59,5 +73,20 @@
   }
   button:hover {
     cursor: pointer;
+  }
+  @media screen and (max-width: 768px) {
+    button {
+      height: 10vw;
+      width: 25vw;
+      border: none;
+      text-align: center;
+      padding-left: 1vw;
+      padding-right: 1vw;
+      color: white;
+      background-color: #000;
+      font-size: 3.5vw;
+      border-radius: 5px;
+      margin-top: 0vh;
+    }
   }
 </style>

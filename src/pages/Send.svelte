@@ -3,7 +3,21 @@
   let chep_password = "";
   let chep = "";
 
-  const post = async (chep, is_protected=false, password="") => {
+  let resp = 100;
+  const screenWidth = screen.width;
+  if (screenWidth < 768) {
+    resp = 30;
+  }
+  window.addEventListener("resize", () => {
+    const screenWidth = screen.width;
+    if (screenWidth < 768) {
+      resp = 30;
+    } else {
+      resp = 100;
+    }
+  });
+
+  const post = async (chep, is_protected = false, password = "") => {
     let formData = {
       chep: chep,
       is_protected: is_protected,
@@ -11,7 +25,7 @@
     };
     try {
       const response = await (
-        await fetch(window.location.origin+"/api/sendchep", {
+        await fetch(window.location.origin + "/api/sendchep", {
           method: "POST",
           body: JSON.stringify(formData),
           headers: { "Content-Type": "application/json; charset=utf-8" },
@@ -27,17 +41,19 @@
   };
 
   const handleChep = () => {
-    console.log(document.getElementById("comments").value)
+    console.log(document.getElementById("comments").value);
     if (document.getElementById("comments").value.trim().length !== 0) {
       chep = document.getElementById("comments").value;
     } else {
       chep == "";
-
     }
   };
 
   const handleChepPassword = () => {
-    if (document.getElementsByClassName("chep_password")[0].value.trim().length !== 0) {
+    if (
+      document.getElementsByClassName("chep_password")[0].value.trim()
+        .length !== 0
+    ) {
       chep_password = document.getElementsByClassName("chep_password")[0].value;
     } else {
       chep_password == "";
@@ -54,12 +70,14 @@
           let dataRetrieved = await post(chep, true, chep_password);
           console.log(dataRetrieved);
           document.getElementById("comments").value =
-            "chep id = "+ dataRetrieved.message.chep_id || dataRetrieved.message.error;
+            "chep id = " + dataRetrieved.message.chep_id ||
+            dataRetrieved.message.error;
         } else {
           let dataRetrieved = await post(chep);
           console.log(dataRetrieved);
           document.getElementById("comments").value =
-          "chep id = "+ dataRetrieved.message.chep_id || dataRetrieved.message.error;
+            "chep id = " + dataRetrieved.message.chep_id ||
+            dataRetrieved.message.error;
         }
       } else {
         document.getElementById("comments").value =
@@ -67,7 +85,6 @@
       }
     }
   });
-
 </script>
 
 <svelte:head>
@@ -79,7 +96,7 @@
     <div class="top-title">
       <h1>Send Chep</h1>
     </div>
-    <textarea id="comments" style="font-size:1.2em;" cols="100" rows="20"></textarea>
+    <textarea id="comments" style="font-size:1.2em;" cols={resp} rows="20" />
     <div class="searchbar">
       <input
         type="password"
@@ -88,8 +105,8 @@
       />
     </div>
     <form id="set_chep">
-    <button type="submit">Send Chep</button>
-  </form>
+      <button type="submit">Send Chep</button>
+    </form>
   </div>
 </body>
 
@@ -112,19 +129,7 @@
     color: black;
     font-size: 1vw;
   }
-  @media screen and (max-width: 768px) {
-    .searchbar {
-      margin-top: 1vw;
-      height: auto;
-      width: auto;
-      width: 70vw;
-      display: flex;
-    }
-    .searchbar input {
-      font-size: 2vh;
-      margin-bottom: 1.2vh;
-    }
-  }
+  
   .height-100 {
     height: 100%;
     width: 100%;
@@ -154,5 +159,32 @@
   }
   button:hover {
     cursor: pointer;
+  }
+  @media screen and (max-width: 768px) {
+    .searchbar {
+      margin-top: 1vw;
+      height: auto;
+      width: auto;
+      width: 70vw;
+      display: flex;
+    }
+    .searchbar input {
+      font-size: 2vh;
+      margin-bottom: 1.2vh;
+    }
+    button {
+      margin-top: 2vw;
+      height: 10vw;
+      width: 25vw;
+      border: none;
+      text-align: center;
+      padding-left: 1vw;
+      padding-right: 1vw;
+      color: white;
+      background-color: #000;
+      font-size: 3.5vw;
+      border-radius: 5px;
+      margin-top: 3vh;
+    }
   }
 </style>
