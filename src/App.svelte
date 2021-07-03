@@ -4,6 +4,12 @@
   import Send from "./pages/Send.svelte";
   import { Router, Route } from "svelte-navigator";
   import Home from "./pages/Home.svelte";
+
+  //turn on in production if you want to redirect to https
+  /*if (location.protocol !== 'https:') {
+    location.replace(`https:${location.href.substring(location.protocol.length)}`);
+  }*/
+
 </script>
 
 <svelte:head>

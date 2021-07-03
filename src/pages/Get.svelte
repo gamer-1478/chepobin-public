@@ -1,40 +1,41 @@
 <script>
-  import { onMount } from 'svelte';
+  import { onMount } from "svelte";
 
   let response1 = {};
   export let chep_id = "";
   let chep_password = "";
 
   const handleChepId = () => {
-    if (document.getElementsByClassName("chep_id")[0].value.trim().length !== 0) {
+    if (
+      document.getElementsByClassName("chep_id")[0].value.trim().length !== 0
+    ) {
       chep_id = document.getElementsByClassName("chep_id")[0].value;
     } else {
       chep_id == "";
-
     }
   };
 
   onMount(async () => {
-    //remove backslash, and change window url.
-    chep_id = chep_id.replace(/\//g, '');
-    window.history.pushState({}, '', window.location.origin+'/'+chep_id);
-
-    document.getElementsByClassName("chep_id")[0].value = chep_id;
-		if (chep_id != "") {
-        if (chep_password != "") {
-          let dataRetrieved = await get(chep_id, chep_password);
-          document.getElementById("myTextarea").value =
-            dataRetrieved.message.chep || dataRetrieved.message.error;
-        } else {
-          let dataRetrieved = await get(chep_id);
-          document.getElementById("myTextarea").value =
-            dataRetrieved.message.chep || dataRetrieved.message.error;
-        }
-      } else {
+    if (chep_id != "") {
+      //remove backslash, and change window url.
+      chep_id = chep_id.replace(/\//g, "");
+      window.history.pushState({}, "", window.location.origin + "/" + chep_id);
+      document.getElementsByClassName("chep_id")[0].value = chep_id;
+      
+      if (chep_password != "") {
+        let dataRetrieved = await get(chep_id, chep_password);
         document.getElementById("myTextarea").value =
-          "please enter a chep id, no chep id was entered";
+          dataRetrieved.message.chep || dataRetrieved.message.error;
+      } else {
+        let dataRetrieved = await get(chep_id);
+        document.getElementById("myTextarea").value =
+          dataRetrieved.message.chep || dataRetrieved.message.error;
       }
-	});
+    } else {
+      document.getElementById("myTextarea").value =
+        "please enter a chep id, no chep id was entered";
+    }
+  });
 
   let resp = 100;
   const screenWidth = screen.width;
@@ -51,7 +52,10 @@
   });
 
   const handleChepPassword = () => {
-    if (document.getElementsByClassName("chep_password")[0].value.trim().length !== 0) {
+    if (
+      document.getElementsByClassName("chep_password")[0].value.trim()
+        .length !== 0
+    ) {
       chep_password = document.getElementsByClassName("chep_password")[0].value;
     } else {
       chep_password == "";
