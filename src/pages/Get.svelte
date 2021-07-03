@@ -1,10 +1,11 @@
 <script>
+  import { onMount } from 'svelte';
+
   let response1 = {};
-  let chep_id = "";
+  export let chep_id = "";
   let chep_password = "";
 
   const handleChepId = () => {
-    console.log(document.getElementsByClassName("chep_id")[0].value)
     if (document.getElementsByClassName("chep_id")[0].value.trim().length !== 0) {
       chep_id = document.getElementsByClassName("chep_id")[0].value;
     } else {
@@ -12,6 +13,28 @@
 
     }
   };
+
+  onMount(async () => {
+    //remove backslash, and change window url.
+    chep_id = chep_id.replace(/\//g, '');
+    window.history.pushState({}, '', window.location.origin+'/'+chep_id);
+
+    document.getElementsByClassName("chep_id")[0].value = chep_id;
+		if (chep_id != "") {
+        if (chep_password != "") {
+          let dataRetrieved = await get(chep_id, chep_password);
+          document.getElementById("myTextarea").value =
+            dataRetrieved.message.chep || dataRetrieved.message.error;
+        } else {
+          let dataRetrieved = await get(chep_id);
+          document.getElementById("myTextarea").value =
+            dataRetrieved.message.chep || dataRetrieved.message.error;
+        }
+      } else {
+        document.getElementById("myTextarea").value =
+          "please enter a chep id, no chep id was entered";
+      }
+	});
 
   let resp = 100;
   const screenWidth = screen.width;
@@ -48,12 +71,9 @@
           }
         )
       ).json();
-      console.log(JSON.stringify(formData));
-      console.log(response);
       response1 = response;
       return { success: true, message: response };
     } catch (err) {
-      console.log(err);
       return { success: false, message: err };
     }
   };
@@ -66,12 +86,10 @@
       if (chep_id != "") {
         if (chep_password != "") {
           let dataRetrieved = await get(chep_id, chep_password);
-          console.log(dataRetrieved);
           document.getElementById("myTextarea").value =
             dataRetrieved.message.chep || dataRetrieved.message.error;
         } else {
           let dataRetrieved = await get(chep_id);
-          console.log(dataRetrieved);
           document.getElementById("myTextarea").value =
             dataRetrieved.message.chep || dataRetrieved.message.error;
         }

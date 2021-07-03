@@ -3,6 +3,8 @@
   let chep_password = "";
   let chep = "";
 
+  let readonly = false;
+
   let resp = 100;
   const screenWidth = screen.width;
   if (screenWidth < 768) {
@@ -31,8 +33,6 @@
           headers: { "Content-Type": "application/json; charset=utf-8" },
         })
       ).json();
-      console.log(JSON.stringify(formData));
-      console.log(response);
       response1 = response;
       return { success: true, message: response };
     } catch (err) {
@@ -41,7 +41,6 @@
   };
 
   const handleChep = () => {
-    console.log(document.getElementById("comments").value);
     if (document.getElementById("comments").value.trim().length !== 0) {
       chep = document.getElementById("comments").value;
     } else {
@@ -65,23 +64,29 @@
     if (e.target.id === "set_chep") {
       await handleChep();
       await handleChepPassword();
-      if (chep != "") {
-        if (chep_password != "") {
-          let dataRetrieved = await post(chep, true, chep_password);
-          console.log(dataRetrieved);
-          document.getElementById("comments").value =
-            "chep id = " + dataRetrieved.message.chep_id ||
-            dataRetrieved.message.error;
+      if (readonly === false) {
+        if (chep != "") {
+          if (chep_password != "") {
+            let dataRetrieved = await post(chep, true, chep_password);
+            document.getElementById("comments").value =
+              "chep id = " + dataRetrieved.message.chep_id ||
+              dataRetrieved.message.error;
+            readonly = true;
+          } else {
+            let dataRetrieved = await post(chep);
+            document.getElementById("comments").value =
+              "chep id = " + dataRetrieved.message.chep_id ||
+              dataRetrieved.message.error;
+            readonly = true;
+          }
         } else {
-          let dataRetrieved = await post(chep);
-          console.log(dataRetrieved);
           document.getElementById("comments").value =
-            "chep id = " + dataRetrieved.message.chep_id ||
-            dataRetrieved.message.error;
+            "Hey... add Some Data in the Chep!";
         }
-      } else {
+      }
+      else{
         document.getElementById("comments").value =
-          "Hey... add Some Data in the Chep!";
+            "You have already submitted once, refresh to submit a new chep";
       }
     }
   });
@@ -96,7 +101,13 @@
     <div class="top-title">
       <h1>Send Chep</h1>
     </div>
-    <textarea id="comments" style="font-size:1.2em;" cols={resp} rows="20" />
+    <textarea
+      {readonly}
+      id="comments"
+      style="font-size:1.2em;"
+      cols={resp}
+      rows="20"
+    />
     <div class="searchbar">
       <input
         type="password"
@@ -129,7 +140,7 @@
     color: black;
     font-size: 1vw;
   }
-  
+
   .height-100 {
     height: 100%;
     width: 100%;

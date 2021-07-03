@@ -2,11 +2,9 @@
   window.addEventListener("submit", async (e) => {
     e.preventDefault();
     if (e.target.id === "retrieve") {
-      console.log(window.location.host + "/get");
       window.location.href = window.location.origin + "/get";
     }
     if (e.target.id === "add_chep") {
-      console.log(window.location.host + "/send");
       window.location.href = window.location.origin + "/send";
     }
   });
