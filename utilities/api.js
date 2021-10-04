@@ -1,5 +1,5 @@
 const firebase = require("../firebase");
-require("firebase/firestore");
+const bcrypt = require('bcryptjs');
 
 const db = firebase.firestore();
 
@@ -8,11 +8,12 @@ async function SendChep(data, docname, is_protected, password = "none") {
     `triggered with data "${data}", name "${docname}", protected = ${is_protected} and password = ${password}`
   );
   const docRef = db.collection("cheps").doc(docname);
+  const hashedPassword = await bcrypt.hash(password, 10);
   await docRef.set({
     chep: data.toString(),
     created: Date.now(),
     is_protected: is_protected,
-    password: password,
+    password: hashedPassword,
   });
 }
 
@@ -33,7 +34,8 @@ async function GetChep(docname, password = 0) {
     if (docData.is_protected === true) {
       if (password != 0) {
         //check if password matches
-        if (docData.password.toString() === password.toString()) {
+        const passwordsMatch = await bcrypt.compare(password.toString(), docData.password.toString());
+        if (passwordsMatch) {
           return docData;
         } else {
           return 2;
