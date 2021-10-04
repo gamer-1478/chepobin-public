@@ -19,7 +19,6 @@ async function SendChep(data, docname, is_protected, password = "none") {
         password: password
     });
 }
-
 async function GetChep(docname, password = 0) {
     /* custom internal server error code's
     1 = doc doesn't exist, inavlid document 
@@ -57,7 +56,6 @@ async function GetChep(docname, password = 0) {
         return 1;
     }
 }
-
 async function isPasswordProtected(docname) {
     console.log(`triggered with docname "${docname.toString()}"`)
     const doc = await db.collection('cheps').doc(docname).get();
@@ -212,6 +210,7 @@ app.get('/api/ispasswordprotected', async (req, res) => {
         res.status(400).send({ "error": "no chep_id given" })
     }
 })
+
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
 });
