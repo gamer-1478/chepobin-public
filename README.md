@@ -11,7 +11,7 @@ cd svelte-app
 
 ## DataBase
 
-This project uses firebase firestore database, whose creds are already provided in env for easy use. Please note, this database is a new one and is in no way linked to chepobin.tk app database.
+This project uses firebase firestore database, whose creds are already provided in env for easy use. Please note, this database is a new one and is in no way linked to chepobin.tk app database. This Projects database, is also [visually avaialable](https://firestore-data-visualiser.herokuapp.com/) using my other project called [firestore data visualiser](https://github.com/gamer-1478/Firestore-data-visualiser).
 
 ## Contribution Guidelines 🏗
 

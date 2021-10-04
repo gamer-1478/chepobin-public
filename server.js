@@ -15,7 +15,6 @@ const limiter = rateLimit({
     windowMs: 60 * 1000, // 1 minutes
     max: 60, // limit each IP to 60 requests per 1 minutes
     message: "Too many requests from this IP, max 60req per 60sec"
-
 });
 
 //  applies to all requests. For individual requests, add 'limiter' as a middleware to specific routes
