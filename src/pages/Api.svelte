@@ -1,10 +1,10 @@
 <svelte:head>
-  <title>ChepBin</title>
+  <title>ChepoBin</title>
 </svelte:head>
 
 <body>
   <div>
-    <h1>ChepBin API</h1>
+    <h1>ChepoBin API</h1>
     <h3>Documentation Of Post To Save Data in server</h3>
     <p>
       {'post data in the format of {"chep":"somechep", "is_protected":false} to url chepobin.tk/api/sendchep'}

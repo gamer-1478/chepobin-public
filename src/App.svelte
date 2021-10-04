@@ -6,15 +6,10 @@
   import Home from "./pages/Home.svelte";
   import Header from "./layout/header.svelte";
   import Footer from "./layout/footer.svelte";
-
-  //turn on in production if you want to redirect to https
-  /*if (location.protocol !== 'https:') {
-    location.replace(`https:${location.href.substring(location.protocol.length)}`);
-  }*/
 </script>
 
 <svelte:head>
-  <title>ChepBin</title>
+  <title>ChepoBin</title>
 </svelte:head>
 
 <Router>
