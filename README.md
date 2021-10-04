@@ -9,6 +9,10 @@ npx degit sveltejs/template svelte-app
 cd svelte-app
 ```
 
+## DataBase
+
+This project uses firebase firestore database, whose creds are already provided in env for easy use. Please note, this database is a new one and is in no way linked to chepobin.tk app database.
+
 ## Contribution Guidelines 🏗
 
 Are there any missing features which we can add to make it the best snippet sharing service? or you are here just to help out with the issues (see issues) or to contribute towards hacktoberfest 2021, well welcome!
