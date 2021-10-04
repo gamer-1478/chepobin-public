@@ -20,11 +20,11 @@ To start contributing, follow the below guidelines:
   D:\xyz_folder\chepobin-public>npm install
 ```
 
-#####This runs the app in test mode.
+##### This runs the app in test mode.
 
-```
+~~~
 D:\xyz_folder\chepobin-public>nodemon --exec "npm run build && npm run start" --ignore public/build
-```
+~~~
 
 You're done! Now you can help with the issues (issues tab and also the issues file) or maybe even add some sections (team section or missions etc) and after accepting the PR
 It'll be counted as your contribution to open source and for hacktoberfest in the month of october! <i>Thanks for coming!</i> Do star it & follow my github if you liked the project and for tons of other projects!
@@ -46,30 +46,30 @@ It'll be counted as your contribution to open source and for hacktoberfest in th
     - Clone the repository to your local system.
     - Login to your heroku account:
 
-    ```
+    ~~~
     heroku login
-    ```
+    ~~~
 
     - Set git remote repository to heroku:
 
-    ```
+    ~~~
     heroku git:remote -a <appName you created earlier>
-    ```
+    ~~~
 
     - Add Files To git:
 
-    ```
+    ~~~
     git add .
-    ```
+    ~~~
 
     - Commit all changes:
 
-    ```
+    ~~~
     git commit -m "awesome work"
-    ```
+    ~~~
 
     - Push the branch to heroku that you want to deploy:
 
-    ```
+    ~~~
     git push heroku master
-    ```
+    ~~~
