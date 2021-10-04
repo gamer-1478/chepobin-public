@@ -21,17 +21,24 @@ To start contributing, follow the below guidelines:
 ```
   D:\xyz_folder> git clone git@github.com:gamer-1478/chepobin-public.git
   D:\xyz_folder> cd chepobin-public
-  D:\xyz_folder\chepobin-public>npm install
+  D:\xyz_folder\chepobin-public> npm install
 ```
 
-##### This runs the app in test mode.
+#### This runs the app in test mode.
 
 ```
-D:\xyz_folder\chepobin-public>npm run dev
+D:\xyz_folder\chepobin-public> npm run dev
 ```
 
-You're done! Now you can help with the issues (issues tab and also the issues file) or maybe even add some sections (team section or missions etc) and after accepting the PR
-It'll be counted as your contribution to open source and for hacktoberfest in the month of october! <i>Thanks for coming!</i> Do star it & follow my github if you liked the project and for tons of other projects!
+#### Start The App In Production Using.
+
+```
+D:\xyz_folder\chepobin-public> npm run build && npm start
+```
+
+You're done! Now you can help with the issues (issues tab and also the issues file) or maybe even add some sections (team section or missions etc) and after accepting the PR It'll be counted as your contribution to open source and for hacktoberfest in the month of october!
+
+Do star the repo if you liked the project & follow my github for tons of other projects!
 
 ## Deployment methods:
 
