@@ -1,14 +1,6 @@
-*Looking for a shareable component template? Go here --> [sveltejs/component-template](https://github.com/sveltejs/component-template)*
-
----
-
 # Chepobin
 
-chepobin website live at [chepobin.tk](https://chepobin.tk).
-## Credits
-Design: [Aayush / Gamer-1478](https://www.aayushgarg.net).
-
-Development: [Aayush / Gamer-1478](https://www.aayushgarg.net).
+Chepobin website For HacktoberFest Is Live At [chepobin.tk](https://chepobin.tk).
 
 This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template.
 

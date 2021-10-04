@@ -60,20 +60,20 @@ async function GetChep(docname, password = 0) {
     }
 }
 
-async  function isPasswordProtected(docname){
+async function isPasswordProtected(docname) {
     console.log(`triggered with docname "${docname.toString()}"`)
     const doc = await db.collection('cheps').doc(docname).get();
     let docData = doc.data();
     //chep is chep exists, and has its own property of chep
     if (doc.exists && docData.hasOwnProperty('chep') && docData.hasOwnProperty('is_protected')) {
-        if (docData.is_protected == true){
+        if (docData.is_protected == true) {
             return true;
         }
-        else{
+        else {
             return false;
         }
     }
-    else{
+    else {
         return "doc doesn't exist"
     }
 
@@ -195,23 +195,23 @@ app.get('/api/getchep', async (req, res) => {
     }
 })
 
-app.get('/api/ispasswordprotected', async (req, res) =>{
+app.get('/api/ispasswordprotected', async (req, res) => {
     let chep_id = req.query.chep_id || "no id"
 
     if (chep_id !== "no id") {
         let response = await isPasswordProtected(chep_id);
-        if (response == true){
-            res.send({"is_protected":true})
+        if (response == true) {
+            res.send({ "is_protected": true })
         }
-        else if (response == false){
-            res.send({"is_protected":false})
+        else if (response == false) {
+            res.send({ "is_protected": false })
         }
-        else{
-            res.status(400).send({"error":response})
+        else {
+            res.status(400).send({ "error": response })
         }
     }
-    else{
-        res.status(400).send({"error":"no chep_id given"})
+    else {
+        res.status(400).send({ "error": "no chep_id given" })
     }
 })
 app.get('*', (req, res) => {
