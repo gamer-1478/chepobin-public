@@ -1,40 +1,44 @@
 <script>
-  let response1 = {};
   let chep_password = "";
   let chep = "";
-
   let readonly = false;
-
   let resp = 100;
-  const screenWidth = screen.width;
-  if (screenWidth < 768) {
+
+  if (screen.width < 768) {
     resp = 30;
   }
+
   window.addEventListener("resize", () => {
-    const screenWidth = screen.width;
-    if (screenWidth < 768) {
+    if (screen.width < 768) {
       resp = 30;
     } else {
       resp = 100;
     }
   });
 
-  const post = async (chep, is_protected = false, password = "") => {
+  const post = async (chep, password = "") => {
+    let is_protected = password.length != 0 ? true : false;
     let formData = {
       chep: chep,
       is_protected: is_protected,
       chep_password: password,
     };
+
     try {
-      const response = await (
-        await fetch(window.location.origin + "/api/sendchep", {
+      const response = await await fetch(
+        window.location.origin + "/api/sendchep",
+        {
           method: "POST",
           body: JSON.stringify(formData),
           headers: { "Content-Type": "application/json; charset=utf-8" },
-        })
-      ).json();
-      response1 = response;
-      return { success: true, message: response };
+        }
+      );
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.indexOf("application/json") !== -1) {
+        return { success: true, message: await response.json() };
+      } else {
+        return { success: false, message: await response.text() };
+      }
     } catch (err) {
       return { success: false, message: err };
     }
@@ -62,38 +66,26 @@
   window.addEventListener("submit", async (e) => {
     e.preventDefault();
     if (e.target.id === "set_chep") {
-      await handleChep();
-      await handleChepPassword();
-      if (readonly === false) {
-        if (chep != "") {
-          if (chep_password != "") {
-            let dataRetrieved = await post(chep, true, chep_password);
-            document.getElementById("comments").value =
-              "chep id = " + dataRetrieved.message.chep_id ||
-              dataRetrieved.message.error;
-            readonly = true;
-          } else {
-            let dataRetrieved = await post(chep);
-            document.getElementById("comments").value =
-              "chep id = " + dataRetrieved.message.chep_id ||
-              dataRetrieved.message.error;
-            readonly = true;
-          }
-        } else {
-          document.getElementById("comments").value =
-            "Hey... add Some Data in the Chep!";
-        }
-      }
-      else{
+      handleChep();
+      handleChepPassword();
+      if (chep.length != 0) {
+        let dataRetrieved = await post(chep, chep_password);
         document.getElementById("comments").value =
-            "You have already submitted once, refresh to submit a new chep";
+          "chep id = " + dataRetrieved.message.chep_id ||
+          dataRetrieved.message.error ||
+          dataRetrieved.message;
+        readonly = true;
+      } else {
+        document.getElementById("comments").value =
+          "Hey... add Some Data in the Chep!";
       }
     }
   });
+  
 </script>
 
 <svelte:head>
-  <title>ChepBin</title>
+  <title>ChepoBin</title>
 </svelte:head>
 
 <body>
@@ -116,7 +108,7 @@
       />
     </div>
     <form id="set_chep">
-      <button type="submit">Send Chep</button>
+      <button type="submit" disabled={readonly}>Send Chep</button>
     </form>
   </div>
 </body>
