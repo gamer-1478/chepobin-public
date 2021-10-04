@@ -1,12 +1,10 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const firebase = require('./firebase');
-const db = firebase.firestore();
+const admin = require('./firebase');
+const db = admin.firestore();
 const port = process.env.PORT || 5002;
 
-require('firebase')
-require('firebase/firestore')
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
