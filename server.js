@@ -1,7 +1,6 @@
 const express = require('express');
 const rateLimit = require("express-rate-limit");
 const path = require('path');
-const admin = require('./firebase');
 const apiRouter = require("./routes/apiRoute");
 
 const app = express();
@@ -23,6 +22,7 @@ const limiter = rateLimit({
 app.use('/', limiter);
 app.set('trust proxy', 1);
 
+//express router
 app.use("/api", apiRouter);
 
 app.get('*', (req, res) => {
