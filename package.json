@@ -20,6 +20,7 @@
     "@firebase/firestore": "^2.3.7",
     "bigpicture": "^2.5.3",
     "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "firebase": "^8.6.8",
     "firebase-admin": "^9.10.0",
