@@ -1,9 +1,8 @@
 <script>
   import { onMount } from "svelte";
-
-  let response1 = {};
   export let chep_id = "";
   let chep_password = "";
+  let resp = 100;
 
   const handleChepId = () => {
     if (
@@ -14,42 +13,6 @@
       chep_id == "";
     }
   };
-
-  onMount(async () => {
-    if (chep_id != "") {
-      //remove backslash, and change window url.
-      chep_id = chep_id.replace(/\//g, "");
-      window.history.pushState({}, "", window.location.origin + "/" + chep_id);
-      document.getElementsByClassName("chep_id")[0].value = chep_id;
-      
-      if (chep_password != "") {
-        let dataRetrieved = await get(chep_id, chep_password);
-        document.getElementById("myTextarea").value =
-          dataRetrieved.message.chep || dataRetrieved.message.error;
-      } else {
-        let dataRetrieved = await get(chep_id);
-        document.getElementById("myTextarea").value =
-          dataRetrieved.message.chep || dataRetrieved.message.error;
-      }
-    } else {
-      document.getElementById("myTextarea").value =
-        "please enter a chep id, no chep id was entered";
-    }
-  });
-
-  let resp = 100;
-  const screenWidth = screen.width;
-  if (screenWidth < 768) {
-    resp = 30;
-  }
-  window.addEventListener("resize", () => {
-    const screenWidth = screen.width;
-    if (screenWidth < 768) {
-      resp = 30;
-    } else {
-      resp = 100;
-    }
-  });
 
   const handleChepPassword = () => {
     if (
@@ -62,47 +25,77 @@
     }
   };
 
+  onMount(async () => {
+    if (screen.width < 768) {
+      resp = 30;
+    }
+
+    if (chep_id != "") {
+      //remove backslash, and change window url.
+      chep_id = chep_id.replace(/\//g, "");
+      window.history.pushState({}, "", window.location.origin + "/" + chep_id);
+      document.getElementsByClassName("chep_id")[0].value = chep_id;
+      updateTextBoxWithChep();
+    } else {
+      document.getElementById("myTextarea").value =
+        "Hey there, enter a chep ID and press GetChep";
+    }
+    
+  });
+
+  window.addEventListener("resize", () => {
+    const screenWidth = screen.width;
+    if (screenWidth < 768) {
+      resp = 30;
+    } else {
+      resp = 100;
+    }
+  });
+
+  window.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (e.target.id === "get_chep") {
+      updateTextBoxWithChep();
+    }
+  });
+
   const get = async (chep_id, password = "") => {
     let formData = { chep_id: chep_id, chep_password: password };
     try {
-      const response = await (
-        await fetch(
-          window.location.origin + `/api/getchep?chep_id=${chep_id}`,
-          {
-            method: "POST",
-            body: JSON.stringify(formData),
-            headers: { "Content-Type": "application/json; charset=utf-8" },
-          }
-        )
-      ).json();
-      response1 = response;
-      return { success: true, message: response };
+      const response = await await fetch(
+        window.location.origin + `/api/getchep?chep_id=${chep_id}`,
+        {
+          method: "POST",
+          body: JSON.stringify(formData),
+          headers: { "Content-Type": "application/json; charset=utf-8" },
+        }
+      );
+      const contentType = response.headers.get("content-type");
+      console.log(contentType);
+      if (contentType && contentType.indexOf("application/json") !== -1) {
+        return { success: true, message: await response.json() };
+      } else {
+        return { success: false, message: await response.text() };
+      }
     } catch (err) {
       return { success: false, message: err };
     }
   };
 
-  window.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    if (e.target.id === "get_chep") {
-      await handleChepId();
-      await handleChepPassword();
-      if (chep_id != "") {
-        if (chep_password != "") {
-          let dataRetrieved = await get(chep_id, chep_password);
-          document.getElementById("myTextarea").value =
-            dataRetrieved.message.chep || dataRetrieved.message.error;
-        } else {
-          let dataRetrieved = await get(chep_id);
-          document.getElementById("myTextarea").value =
-            dataRetrieved.message.chep || dataRetrieved.message.error;
-        }
-      } else {
-        document.getElementById("myTextarea").value =
-          "please enter a chep id, no chep id was entered";
-      }
+  const updateTextBoxWithChep = async () => {
+    await handleChepId();
+    await handleChepPassword();
+    if (chep_id != "") {
+      let dataRetrieved = await get(chep_id, chep_password);
+      console.log(dataRetrieved.message.chep, dataRetrieved.message);
+      document.getElementById("myTextarea").value =
+        dataRetrieved.message.chep || dataRetrieved.message;
+    } else {
+      document.getElementById("myTextarea").value =
+        "No Chep ID Was Given. Please enter A ID To Get";
     }
-  });
+  };
+
 </script>
 
 <svelte:head>
@@ -130,7 +123,7 @@
       style="font-size:1.2em;"
       cols={resp}
       rows="20"
-      >Your Chep Data!
+      >Loading Your Chep Data!
     </textarea>
     <form id="get_chep">
       <button type="submit">Get Chep</button>

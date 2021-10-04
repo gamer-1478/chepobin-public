@@ -14,11 +14,14 @@ app.use(express.urlencoded({ extended: false }));
 //enable rate limiting for API calls
 const limiter = rateLimit({
     windowMs: 60 * 1000, // 1 minutes
-    max: 60 // limit each IP to 60 requests per 1 minutes
+    max: 60, // limit each IP to 60 requests per 1 minutes
+    message: "Too many requests from this IP, max 60req per 60sec"
+
 });
 
 //  applies to all requests. For individual requests, add 'limiter' as a middleware to specific routes
-app.use(limiter);
+app.use('/', limiter);
+app.set('trust proxy', 1);
 
 
 async function SendChep(data, docname, is_protected, password = "none") {
@@ -88,7 +91,7 @@ async function isPasswordProtected(docname) {
 }
 async function makeid(length) {
     var result = '';
-    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789$_=';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var charactersLength = characters.length;
     for (var i = 0; i < length; i++) {
         result += characters.charAt(Math.floor(Math.random() *
