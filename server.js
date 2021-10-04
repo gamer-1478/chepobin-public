@@ -1,7 +1,6 @@
 const express = require('express');
 const rateLimit = require("express-rate-limit");
 const path = require('path');
-const admin = require('./firebase');
 const apiRouter = require("./routes/apiRoute");
 
 const app = express();
