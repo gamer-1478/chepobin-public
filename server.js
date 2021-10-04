@@ -13,8 +13,8 @@ app.use(express.urlencoded({ extended: false }));
 
 //enable rate limiting for API calls
 const limiter = rateLimit({
-    windowMs: 5 * 60 * 1000, // 5 minutes
-    max: 20 // limit each IP to 20 requests per 5 minutes
+    windowMs: 60 * 1000, // 1 minutes
+    max: 60 // limit each IP to 60 requests per 1 minutes
 });
 
 //  applies to all requests. For individual requests, add 'limiter' as a middleware to specific routes
