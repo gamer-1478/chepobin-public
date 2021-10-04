@@ -27,7 +27,7 @@ To start contributing, follow the below guidelines:
 ##### This runs the app in test mode.
 
 ```
-D:\xyz_folder\chepobin-public>nodemon --exec "npm run build && npm run start" --ignore public/build
+D:\xyz_folder\chepobin-public>npm run dev
 ```
 
 You're done! Now you can help with the issues (issues tab and also the issues file) or maybe even add some sections (team section or missions etc) and after accepting the PR
