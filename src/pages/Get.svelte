@@ -40,7 +40,6 @@
       document.getElementById("myTextarea").value =
         "Hey there, enter a chep ID and press GetChep";
     }
-    
   });
 
   window.addEventListener("resize", () => {
@@ -71,7 +70,6 @@
         }
       );
       const contentType = response.headers.get("content-type");
-      console.log(contentType);
       if (contentType && contentType.indexOf("application/json") !== -1) {
         return { success: true, message: await response.json() };
       } else {
@@ -83,23 +81,24 @@
   };
 
   const updateTextBoxWithChep = async () => {
-    await handleChepId();
-    await handleChepPassword();
+    handleChepId();
+    handleChepPassword();
     if (chep_id != "") {
       let dataRetrieved = await get(chep_id, chep_password);
       console.log(dataRetrieved.message.chep, dataRetrieved.message);
       document.getElementById("myTextarea").value =
-        dataRetrieved.message.chep || dataRetrieved.message;
+        dataRetrieved.message.chep ||
+        dataRetrieved.message.error ||
+        dataRetrieved.message;
     } else {
       document.getElementById("myTextarea").value =
         "No Chep ID Was Given. Please enter A ID To Get";
     }
   };
-
 </script>
 
 <svelte:head>
-  <title>ChepBin</title>
+  <title>ChepoBin</title>
 </svelte:head>
 
 <body>

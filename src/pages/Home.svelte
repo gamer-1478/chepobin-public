@@ -25,7 +25,7 @@
 </script>
 
 <svelte:head>
-  <title>ChepBin</title>
+  <title>ChepoBin</title>
 </svelte:head>
 <body>
   <div class="mainGet height-100">
