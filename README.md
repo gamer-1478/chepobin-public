@@ -1,48 +1,75 @@
 # Chepobin
 
-Chepobin website For HacktoberFest Is Live At [chepobin.tk](https://chepobin.tk).
+Chepobin website For HacktoberFest Is Live At [chepobin-public.herokuapp.com](https://chepobin-public.herokuapp.com).
 
-This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template.
-
-To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
+This project Uses [Svelte](https://svelte.dev), [Node.js](https://nodejs.org/en/), [Express.js](https://expressjs.com/) and [Firebase](https://firebase.google.com/).
 
 ```bash
 npx degit sveltejs/template svelte-app
 cd svelte-app
 ```
 
-*Note that you will need to have [Node.js](https://nodejs.org) installed.*
+## Contribution Guidelines 🏗
 
+Are there any missing features which we can add to make it the best snippet sharing service? or you are here just to help out with the issues (see issues) or to contribute towards hacktoberfest 2021, well welcome!
+To start contributing, follow the below guidelines:
 
-## Get started
-
-#### Go to firebase and make a new app, paste the creds in firebase.js
-
-Install the dependencies...
-
-```bash
-cd chepobin-public
-npm install
+```
+  D:\xyz_folder> git clone git@github.com:gamer-1478/chepobin-public.git
+  D:\xyz_folder> cd chepobin-public
+  D:\xyz_folder\chepobin-public>npm install
 ```
 
-...then start using 
+#####This runs the app in test mode.
 
-```bash 
-nodemon --exec "npm run build && npm run start" --ignore public/build
+```
+D:\xyz_folder\chepobin-public>nodemon --exec "npm run build && npm run start" --ignore public/build
 ```
 
-As the app uses server.js to serve, you need to build before serving. 
+You're done! Now you can help with the issues (issues tab and also the issues file) or maybe even add some sections (team section or missions etc) and after accepting the PR
+It'll be counted as your contribution to open source and for hacktoberfest in the month of october! <i>Thanks for coming!</i> Do star it & follow my github if you liked the project and for tons of other projects!
 
-Navigate to [localhost:5002](http://localhost:5002). You should see your app running. Edit a component file in `src`, save it, and reload the page to see your changes.
+## Deployment methods:
 
-If you're using [Visual Studio Code](https://code.visualstudio.com/) we recommend installing the official extension [Svelte for VS Code](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode). If you are using other editors you may need to install a plugin in order to get syntax highlighting and intellisense.
+1.  **_Deploy Forked repository (Heroku)_**
 
-## Building and running in production mode
+    - First fork the repository.
+    - Login to your heroku account.
+    - Create new app & give a name.
+    - Connect your GitHub account to heroku.
+    - Search the repo you want to deploy and then deploy.
 
-To create an optimised version of the app:
+2.  **_Deploy local repository (Heroku)_**
 
-```bash
-npm run build
-```
+    - Prerequisites : Heroku cli
+    - First make a new app on heroku & give a name.
+    - Clone the repository to your local system.
+    - Login to your heroku account:
 
-You can run the newly built app with `npm run start`. This uses [Node.js](https://nodejs.org), which is included in your package.json's `dependencies` to serve a server.js so that the app will work when you deploy to platforms like [Heroku](https://heroku.com).
+    ```
+    heroku login
+    ```
+
+    - Set git remote repository to heroku:
+
+    ```
+    heroku git:remote -a <appName you created earlier>
+    ```
+
+    - Add Files To git:
+
+    ```
+    git add .
+    ```
+
+    - Commit all changes:
+
+    ```
+    git commit -m "awesome work"
+    ```
+
+    - Push the branch to heroku that you want to deploy:
+
+    ```
+    git push heroku master
+    ```
