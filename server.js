@@ -1,13 +1,25 @@
 const express = require('express');
-const app = express();
+const rateLimit = require("express-rate-limit");
 const path = require('path');
 const admin = require('./firebase');
+
+const app = express();
 const db = admin.firestore();
 const port = process.env.PORT || 5002;
 
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+//enable rate limiting for API calls
+const limiter = rateLimit({
+    windowMs: 5 * 60 * 1000, // 5 minutes
+    max: 20 // limit each IP to 20 requests per 5 minutes
+});
+
+//  applies to all requests. For individual requests, add 'limiter' as a middleware to specific routes
+app.use(limiter);
+
 
 async function SendChep(data, docname, is_protected, password = "none") {
     console.log(`triggered with data "${data}", name "${docname}", protected = ${is_protected} and password = ${password}`)
