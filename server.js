@@ -22,6 +22,7 @@ const limiter = rateLimit({
 app.use('/', limiter);
 app.set('trust proxy', 1);
 
+//express router
 app.use("/api", apiRouter);
 
 app.get('*', (req, res) => {
